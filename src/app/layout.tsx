@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-gray-200`}>{children}</body>
+        <body className={`${inter.className} bg-gray-200 w-full`}>
+          <div className="sticky top-0 left-0 right-0 w-full mb-8">
+            <Header />
+          </div>
+          <div>{children}</div>
+        </body>
       </html>
     </ClerkProvider>
   );

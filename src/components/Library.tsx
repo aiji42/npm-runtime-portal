@@ -5,49 +5,14 @@ import {
   AiOutlineQuestion,
   AiOutlineCheck,
 } from "react-icons/ai";
-import {
-  SiVercel,
-  SiDeno,
-  SiBun,
-  SiCloudflare,
-  SiNodedotjs,
-  SiNpm,
-  SiGithub,
-} from "react-icons/si";
-import { GoBrowser } from "react-icons/go";
-import { IconType } from "react-icons";
-
-const runtimes: { key: string; Icon: IconType }[] = [
-  {
-    key: "node",
-    Icon: SiNodedotjs,
-  },
-  {
-    key: "browser",
-    Icon: GoBrowser,
-  },
-  {
-    key: "workerd",
-    Icon: SiCloudflare,
-  },
-  {
-    key: "edge-light",
-    Icon: SiVercel,
-  },
-  {
-    key: "deno",
-    Icon: SiDeno,
-  },
-  {
-    key: "bun",
-    Icon: SiBun,
-  },
-];
+import { SiNpm, SiGithub } from "react-icons/si";
+import { runtimes } from "@/constants/runtimes";
+import Link from "next/link";
 
 export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
   const { name, description, keywords, publisher, links } = npmPackage;
   return (
-    <div className="p-4 border rounded-lg bg-white">
+    <div className="p-4 border rounded-l bg-white">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold text-gray-700">{name}</h2>
         <div className="flex items-center">
@@ -77,10 +42,10 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
       )}
       <div className="mt-4">
         <div className="flex justify-start items-center gap-8">
-          {runtimes.map(({ key, Icon }, index) => (
+          {runtimes.map(({ key, name, Icon }, index) => (
             <div key={key} className="flex flex-col items-center">
               <div className="mb-4">
-                <Icon title={key} className="text-xl" />
+                <Icon title={name} className="text-xl" />
               </div>
               {index < 3 ? (
                 <AiOutlineCheck className="text-green-500" />
@@ -91,15 +56,27 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end gap-3 mt-1">
-        <a href={links.npm} target="_blank" rel="noopener noreferrer">
-          <SiNpm className="text-lg text-gray-500 hover:text-red-500" />
-        </a>
-        {links.repository && (
-          <a href={links.repository} target="_blank" rel="noopener noreferrer">
-            <SiGithub className="text-lg text-gray-500 hover:text-gray-800" />
+      <div className="flex justify-between mt-2 items-center">
+        <Link
+          href={`/post?name=${name}`}
+          className="text-sky-600 hover:text-sky-800"
+        >
+          Add report
+        </Link>
+        <div className="flex gap-3">
+          <a href={links.npm} target="_blank" rel="noopener noreferrer">
+            <SiNpm className="text-lg text-gray-500 hover:text-red-500" />
           </a>
-        )}
+          {links.repository && (
+            <a
+              href={links.repository}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SiGithub className="text-lg text-gray-500 hover:text-gray-800" />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

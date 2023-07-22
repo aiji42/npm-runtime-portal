@@ -1,6 +1,7 @@
 import { fetchNpmLibraries } from "@/libs/npm";
 import { Library } from "@/components/Library";
 import { redirect } from "next/navigation";
+import { SearchBar } from "@/components/SearchBar";
 
 export const runtime = "edge";
 
@@ -16,10 +17,9 @@ export default async function Page({
 
   return (
     <main className="flex flex-col gap-y-4 max-w-2xl mx-auto">
+      <SearchBar defaultValue={q} />
       {res.results.map(({ package: npmPackage }, index) => (
-        <div key={index} className="">
-          <Library npmPackage={npmPackage} />
-        </div>
+        <Library key={index} npmPackage={npmPackage} />
       ))}
       {res.results.length < 1 && (
         <div className="text-center mt-10">

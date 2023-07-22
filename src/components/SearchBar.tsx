@@ -13,7 +13,7 @@ export const SearchBar = ({
         <input
           className={`appearance-none border-none rounded-l w-full ${
             narrow ? "py-2 px-3 text-xs" : "py-3 px-3 text-lg"
-          } text-gray-700 leading-tight`}
+          } text-gray-600 leading-tight`}
           name="q"
           id="search"
           type="text"
