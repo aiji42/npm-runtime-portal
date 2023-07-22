@@ -1,7 +1,48 @@
 import { NpmsPackage } from "@/libs/npm";
 import { getAvatarURL } from "@/libs/gravatar";
-import { AiFillGithub, AiOutlineTags } from "react-icons/ai";
-import { FaNpm } from "react-icons/fa";
+import {
+  AiOutlineTag,
+  AiOutlineQuestion,
+  AiOutlineCheck,
+} from "react-icons/ai";
+import {
+  SiVercel,
+  SiDeno,
+  SiBun,
+  SiCloudflare,
+  SiNodedotjs,
+  SiNpm,
+  SiGithub,
+} from "react-icons/si";
+import { GoBrowser } from "react-icons/go";
+import { IconType } from "react-icons";
+
+const runtimes: { key: string; Icon: IconType }[] = [
+  {
+    key: "node",
+    Icon: SiNodedotjs,
+  },
+  {
+    key: "browser",
+    Icon: GoBrowser,
+  },
+  {
+    key: "workerd",
+    Icon: SiCloudflare,
+  },
+  {
+    key: "edge-light",
+    Icon: SiVercel,
+  },
+  {
+    key: "deno",
+    Icon: SiDeno,
+  },
+  {
+    key: "bun",
+    Icon: SiBun,
+  },
+];
 
 export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
   const { name, description, keywords, publisher, links } = npmPackage;
@@ -23,7 +64,7 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
       {keywords && (
         <div className="flex items-center">
           <span className="w-4 mr-2 text-gray-500">
-            <AiOutlineTags />
+            <AiOutlineTag />
           </span>
           <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
             {keywords.map((keyword, index) => (
@@ -34,13 +75,29 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
           </div>
         </div>
       )}
+      <div className="mt-4">
+        <div className="flex justify-start items-center gap-8">
+          {runtimes.map(({ key, Icon }) => (
+            <div key={key} className="flex flex-col items-center">
+              <div className="mb-4">
+                <Icon title={key} className="text-xl" />
+              </div>
+              {Math.random() < 0.5 ? (
+                <AiOutlineCheck className="text-green-500" />
+              ) : (
+                <AiOutlineQuestion className="text-gray-500" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="flex justify-end gap-3 mt-1">
         <a href={links.npm} target="_blank" rel="noopener noreferrer">
-          <FaNpm className="text-xl text-gray-500 hover:text-red-500" />
+          <SiNpm className="text-lg text-gray-500 hover:text-red-500" />
         </a>
         {links.repository && (
           <a href={links.repository} target="_blank" rel="noopener noreferrer">
-            <AiFillGithub className="text-xl text-gray-500 hover:text-gray-800" />
+            <SiGithub className="text-lg text-gray-500 hover:text-gray-800" />
           </a>
         )}
       </div>
