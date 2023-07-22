@@ -1,7 +1,12 @@
 import { FiGithub, FiTwitter } from "react-icons/fi";
 import { SearchBar } from "@/components/SearchBar";
+import { ComponentProps } from "react";
 
-export const Header = ({ withSearch }: { withSearch?: boolean }) => {
+type Props = {
+  withSearch?: boolean;
+} & Pick<ComponentProps<typeof SearchBar>, "defaultValue">;
+
+export const Header = ({ withSearch, defaultValue }: Props) => {
   return (
     <header className="bg-sky-950 text-white p-3 flex justify-between items-center flex-row-reverse h-14">
       <div className="flex">
@@ -26,7 +31,7 @@ export const Header = ({ withSearch }: { withSearch?: boolean }) => {
       </div>
       {withSearch && (
         <div className="max-w-md">
-          <SearchBar narrow />
+          <SearchBar narrow defaultValue={defaultValue} />
         </div>
       )}
     </header>

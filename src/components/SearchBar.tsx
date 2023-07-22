@@ -1,6 +1,12 @@
 import { FiSearch } from "react-icons/fi";
 
-export const SearchBar = ({ narrow }: { narrow?: boolean }) => {
+export const SearchBar = ({
+  narrow,
+  defaultValue,
+}: {
+  narrow?: boolean;
+  defaultValue?: string | null;
+}) => {
   return (
     <div className="w-full">
       <form action="/search" method="GET" className="flex">
@@ -12,6 +18,7 @@ export const SearchBar = ({ narrow }: { narrow?: boolean }) => {
           id="search"
           type="text"
           placeholder="Search packages"
+          defaultValue={defaultValue ?? ""}
         />
         <button
           className={`bg-sky-400 hover:bg-sky-500 text-white font-bold ${
