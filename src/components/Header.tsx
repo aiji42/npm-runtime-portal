@@ -30,8 +30,11 @@ export const Header = ({ withSearch, defaultValue }: Props) => {
         </a>
       </div>
       {withSearch && (
-        <div className="max-w-md">
-          <SearchBar narrow defaultValue={defaultValue} />
+        <div className="flex gap-3 items-center">
+          <h1 className="text-3xl font-bold text-white">Runtime</h1>
+          <div className="max-w-md">
+            <SearchBar narrow defaultValue={defaultValue} />
+          </div>
         </div>
       )}
     </header>
