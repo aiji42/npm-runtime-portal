@@ -1,6 +1,7 @@
 import { FiGithub, FiTwitter } from "react-icons/fi";
 import { SearchBar } from "@/components/SearchBar";
 import { ComponentProps } from "react";
+import Link from "next/link";
 
 type Props = {
   withSearch?: boolean;
@@ -31,7 +32,9 @@ export const Header = ({ withSearch, defaultValue }: Props) => {
       </div>
       {withSearch && (
         <div className="flex gap-3 items-center">
-          <h1 className="text-3xl font-bold text-white">Runtime</h1>
+          <Link href="/">
+            <h1 className="text-3xl font-bold text-white">Runtime</h1>
+          </Link>
           <div className="max-w-md">
             <SearchBar narrow defaultValue={defaultValue} />
           </div>
