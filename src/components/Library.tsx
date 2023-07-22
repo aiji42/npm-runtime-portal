@@ -77,12 +77,12 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
       )}
       <div className="mt-4">
         <div className="flex justify-start items-center gap-8">
-          {runtimes.map(({ key, Icon }) => (
+          {runtimes.map(({ key, Icon }, index) => (
             <div key={key} className="flex flex-col items-center">
               <div className="mb-4">
                 <Icon title={key} className="text-xl" />
               </div>
-              {Math.random() < 0.5 ? (
+              {index < 3 ? (
                 <AiOutlineCheck className="text-green-500" />
               ) : (
                 <AiOutlineQuestion className="text-gray-500" />

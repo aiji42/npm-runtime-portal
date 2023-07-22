@@ -59,6 +59,7 @@ export const fetchNpmLibraries = async (
 ): Promise<NpmsSearchResult> => {
   const npmSearchResponse = await fetch(
     `https://api.npms.io/v2/search?q=${q}&size=${30}&from=0`,
+    { next: { revalidate: 3600 } },
   );
   return npmSearchResponse.json();
 };
