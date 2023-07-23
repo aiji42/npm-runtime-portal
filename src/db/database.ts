@@ -1,6 +1,6 @@
 import { createKysely } from "@vercel/postgres-kysely";
 import { DB } from "./types";
-import { InsertObject } from "kysely";
+import { InsertObject, sql } from "kysely";
 
 const db = createKysely<DB>();
 
@@ -54,43 +54,128 @@ export const aggregateRuntimeSupportStatus = (packageName: string) => {
       return [
         "packageName",
         eb.fn
-          .sum(eb.case("node").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("node")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsNodeCnt"),
         eb.fn
-          .sum(eb.case("browser").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("browser")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsBrowserCnt"),
         eb.fn
-          .sum(eb.case("workerd").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("workerd")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsWorkerdCnt"),
         eb.fn
-          .sum(eb.case("edgeLight").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("edgeLight")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsEdgeLightCnt"),
         eb.fn
-          .sum(eb.case("deno").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("deno")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsDenoCnt"),
         eb.fn
-          .sum(eb.case("bun").when(true).then(1).else(0).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("bun")
+              .when(true)
+              .then(1)
+              .else(0)
+              .end()} as int)`,
+          )
           .as("supportsBunCnt"),
         eb.fn
-          .sum(eb.case("node").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("node")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportNodeCnt"),
         eb.fn
-          .sum(eb.case("browser").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("browser")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportBrowserCnt"),
         eb.fn
-          .sum(eb.case("workerd").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("workerd")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportWorkerdCnt"),
         eb.fn
-          .sum(eb.case("edgeLight").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("edgeLight")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportEdgeLightCnt"),
         eb.fn
-          .sum(eb.case("deno").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("deno")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportDenoCnt"),
         eb.fn
-          .sum(eb.case("bun").when(null).then(0).else(1).end())
+          .sum<number>(
+            sql`cast(${eb
+              .case("bun")
+              .when(null)
+              .then(0)
+              .else(1)
+              .end()} as int)`,
+          )
           .as("totalReportBunCnt"),
       ];
     })
     .where("packageName", "=", packageName)
+    .groupBy("packageName")
     .executeTakeFirst();
 };

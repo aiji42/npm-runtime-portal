@@ -1,15 +1,16 @@
 import { NpmsPackage } from "@/libs/npm";
 import { getAvatarURL } from "@/libs/gravatar";
-import {
-  AiOutlineTag,
-  AiOutlineQuestion,
-  AiOutlineCheck,
-} from "react-icons/ai";
+import { AiOutlineTag } from "react-icons/ai";
 import { SiNpm, SiGithub } from "react-icons/si";
-import { runtimes } from "@/constants/runtimes";
-import Link from "next/link";
+import { ReactNode } from "react";
 
-export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
+export const Library = ({
+  npmPackage,
+  children,
+}: {
+  npmPackage: NpmsPackage;
+  children?: ReactNode;
+}) => {
   const { name, description, keywords, publisher, links } = npmPackage;
   return (
     <div className="p-4 border rounded-l bg-white">
@@ -40,27 +41,7 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
           </div>
         </div>
       )}
-      <div className="mt-2">
-        <Link
-          href={`/post?name=${name}`}
-          className="inline-block hover:bg-gray-50 p-2"
-        >
-          <div className="flex justify-start items-center gap-8">
-            {runtimes.map(({ key, name, Icon }, index) => (
-              <div key={key} className="flex flex-col items-center">
-                <div className="mb-4">
-                  <Icon title={name} className="text-xl" />
-                </div>
-                {index < 3 ? (
-                  <AiOutlineCheck className="text-green-500" />
-                ) : (
-                  <AiOutlineQuestion className="text-gray-500" />
-                )}
-              </div>
-            ))}
-          </div>
-        </Link>
-      </div>
+      <div className="mt-2">{children}</div>
       <div className="flex justify-end items-center">
         <div className="flex gap-3">
           <a href={links.npm} target="_blank" rel="noopener noreferrer">
