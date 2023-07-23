@@ -1,13 +1,12 @@
 export interface NpmsSearchResult {
   total: number;
-  results: NpmsSearchResultItem[];
+  objects: NpmsSearchResultItem[];
 }
 
 interface NpmsSearchResultItem {
   package: NpmsPackage;
   score: NpmsScore;
   searchScore: number;
-  flags?: NpmsFlags;
 }
 
 export interface NpmsPackage {
@@ -58,7 +57,7 @@ export const fetchNpmLibraries = async (
   q: string,
 ): Promise<NpmsSearchResult> => {
   const npmSearchResponse = await fetch(
-    `https://api.npms.io/v2/search?q=${q}&size=${30}&from=0`,
+    `https://registry.npmjs.org/-/v1/search?text=${q}&size=${10}`,
     { next: { revalidate: 3600 } },
   );
   return npmSearchResponse.json();
