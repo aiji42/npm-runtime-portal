@@ -24,7 +24,7 @@ export const runtimes = [
     Icon: SiCloudflare,
   },
   {
-    key: "edge-light",
+    key: "edgeLight",
     name: "Vercel Edge Functions",
     Icon: SiVercel,
   },
@@ -39,3 +39,5 @@ export const runtimes = [
     Icon: SiBun,
   },
 ] as const;
+
+export type RuntimeKeys = (typeof runtimes)[number]["key"];

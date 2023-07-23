@@ -40,29 +40,28 @@ export const Library = ({ npmPackage }: { npmPackage: NpmsPackage }) => {
           </div>
         </div>
       )}
-      <div className="mt-4">
-        <div className="flex justify-start items-center gap-8">
-          {runtimes.map(({ key, name, Icon }, index) => (
-            <div key={key} className="flex flex-col items-center">
-              <div className="mb-4">
-                <Icon title={name} className="text-xl" />
-              </div>
-              {index < 3 ? (
-                <AiOutlineCheck className="text-green-500" />
-              ) : (
-                <AiOutlineQuestion className="text-gray-500" />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex justify-between mt-2 items-center">
+      <div className="mt-2">
         <Link
           href={`/post?name=${name}`}
-          className="text-sky-600 hover:text-sky-800"
+          className="inline-block hover:bg-gray-50 p-2"
         >
-          Add report
+          <div className="flex justify-start items-center gap-8">
+            {runtimes.map(({ key, name, Icon }, index) => (
+              <div key={key} className="flex flex-col items-center">
+                <div className="mb-4">
+                  <Icon title={name} className="text-xl" />
+                </div>
+                {index < 3 ? (
+                  <AiOutlineCheck className="text-green-500" />
+                ) : (
+                  <AiOutlineQuestion className="text-gray-500" />
+                )}
+              </div>
+            ))}
+          </div>
         </Link>
+      </div>
+      <div className="flex justify-end items-center">
         <div className="flex gap-3">
           <a href={links.npm} target="_blank" rel="noopener noreferrer">
             <SiNpm className="text-lg text-gray-500 hover:text-red-500" />
