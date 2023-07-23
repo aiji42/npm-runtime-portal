@@ -1,6 +1,8 @@
 import { createKysely } from "@vercel/postgres-kysely";
 import { DB } from "./types";
 import { InsertObject, sql } from "kysely";
+import "server-only";
+import { cache } from "react";
 
 const db = createKysely<DB>();
 
@@ -47,7 +49,7 @@ export const findRuntimeSupportReport = ({
     .executeTakeFirst();
 };
 
-export const aggregateRuntimeSupportStatus = (packageName: string) => {
+export const aggregateRuntimeSupportStatus = cache((packageName: string) => {
   return db
     .selectFrom("RuntimeSupportReport")
     .select((eb) => {
@@ -178,4 +180,4 @@ export const aggregateRuntimeSupportStatus = (packageName: string) => {
     .where("packageName", "=", packageName)
     .groupBy("packageName")
     .executeTakeFirst();
-};
+});
